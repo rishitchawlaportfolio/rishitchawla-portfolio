@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type PointerEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent,
+  type ReactNode,
+} from "react";
 
 function GlassCard({
   children,
@@ -122,6 +128,49 @@ function GlassCard({
     </div>
   );
 }
+function Reveal({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${
+        visible
+          ? "translate-y-0 opacity-100"
+          : "translate-y-8 opacity-0"
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
 
 export default function Home() {
   
@@ -174,10 +223,12 @@ export default function Home() {
 
 
       {/* HERO */}
+      
       <section
         id="top"
         className="flex min-h-screen items-center px-6 pb-20 pt-32 sm:px-10"
       >
+      <Reveal className="w-full">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-16 lg:grid-cols-[1.15fr_0.85fr]">
 
           {/* HERO TEXT */}
@@ -254,7 +305,7 @@ export default function Home() {
                     alt="Rishit Chawla - Video Editor"
                     fill
                     priority
-                    className="object-cover object-center"
+                   className="object-cover object-center animate-[heroImage_900ms_ease-out]"
                     sizes="(max-width: 1024px) 90vw, 430px"
                   />
 
@@ -326,6 +377,7 @@ export default function Home() {
           </div>
 
         </div>
+        </Reveal>
       </section>
 
 
@@ -365,6 +417,7 @@ export default function Home() {
 
     <div className="grid gap-6 md:grid-cols-3">
       {[1, 2, 3].map((project) => (
+        <Reveal key={`personal-${project}`}>
         <GlassCard
           key={`personal-${project}`}
           className="group cursor-pointer"
@@ -400,6 +453,7 @@ export default function Home() {
             </div>
           </div>
         </GlassCard>
+        </Reveal>
       ))}
     </div>
   </div>
@@ -412,10 +466,10 @@ export default function Home() {
 
     <div className="grid gap-6 md:grid-cols-3">
       {[1, 2, 3].map((project) => (
-        <GlassCard
-          key={`product-${project}`}
-          className="group cursor-pointer"
-        >
+       <Reveal key={`product-${project}`}>
+  <GlassCard
+    className="group cursor-pointer"
+  >
           <div className="p-4">
             <div className="overflow-hidden rounded-2xl bg-black">
               <div className="aspect-[9/16]">
@@ -447,6 +501,7 @@ export default function Home() {
             </div>
           </div>
         </GlassCard>
+        </Reveal>
       ))}
     </div>
   </div>
@@ -461,7 +516,8 @@ export default function Home() {
 <section
   id="services"
   className="border-t border-black/[0.07] px-6 py-28 sm:px-10"
->
+  >
+<Reveal>
   <div className="mx-auto max-w-6xl">
     <div className="mb-14">
       <p className="mb-4 text-sm font-medium uppercase tracking-[0.14em] text-black/40">
@@ -528,6 +584,7 @@ export default function Home() {
       </GlassCard>
     </div>
   </div>
+  </Reveal>
 </section>
 
 
@@ -536,7 +593,8 @@ export default function Home() {
   id="about"
   className="border-t border-black/[0.07] px-6 py-28 sm:px-10"
 >
-  <div className="mx-auto max-w-6xl">
+  <Reveal className="w-full">
+    <div className="mx-auto max-w-6xl">
 
     <div className="flex flex-col gap-14 md:flex-row md:justify-between">
 
@@ -586,13 +644,15 @@ export default function Home() {
     </div>
 
   </div>
+</Reveal> 
 </section>
 
       {/* CONTACT */}
       <section
-        id="contact"
-        className="border-t border-black/[0.07] px-6 py-32 sm:px-10"
-      >
+  id="contact"
+  className="border-t border-black/[0.07] px-6 py-32 sm:px-10"
+>
+  <Reveal className="w-full">
         <div className="mx-auto max-w-6xl">
 
           <GlassCard className="p-10 sm:p-16">
@@ -620,6 +680,7 @@ good execution.
           </GlassCard>
 
         </div>
+      </Reveal> 
       </section>
 
 
