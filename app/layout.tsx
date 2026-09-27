@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Rishit Chawla — Video Editor for Startups & Growing Businesses",
   description:
     "Rishit Chawla is a video editor helping startups and growing businesses turn founder-led and product-focused content into engaging short-form and long-form videos.",
+      verification: {
+    google: "ArjNaZet8m6lpJN8SRJD3Kl_trqnYhZZLz8Onmgqqsc",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
