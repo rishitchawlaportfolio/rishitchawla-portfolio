@@ -16,7 +16,20 @@ export const metadata: Metadata = {
   title: "Rishit Chawla — Video Editor for Startups & Growing Businesses",
   description:
     "Rishit Chawla is a video editor helping startups and growing businesses turn founder-led and product-focused content into engaging short-form and long-form videos.",
-      verification: {
+  openGraph: {
+    title: "Rishit Chawla — Video Editor for Startups & Growing Businesses",
+    description:
+      "Video Editor for Startups & Growing Businesses",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rishit Chawla — Video Editor for Startups & Growing Businesses",
+    description:
+      "Video Editor for Startups & Growing Businesses",
+    images: ["/og-image.png"],
+  },
+  verification: {
     google: "ArjNaZet8m6lpJN8SRJD3Kl_trqnYhZZLz8Onmgqqsc",
   },
 };
